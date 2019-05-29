@@ -7,28 +7,27 @@ const classifiedColumn = document.querySelectorAll('.classifiedColumn'),
 const handler = (event) => {
   let data = event.target.innerHTML.charAt(0)
   if (event.target.nodeName === 'LI') {
-    switch (data) {
-      case 'A':
-        classifiedColumn[0].appendChild(event.target)
-        break;
-      case 'B':
-        classifiedColumn[1].appendChild(event.target)
-        break;
-      case 'C':
-        classifiedColumn[2].appendChild(event.target)
-        break;
-      default:
-      // code block
+    // switch (data) {
+    //   case 'A':
+    //     classifiedColumn[0].appendChild(event.target)
+    //     break;
+    //   case 'B':
+    //     classifiedColumn[1].appendChild(event.target)
+    //     break;
+    //   case 'C':
+    //     classifiedColumn[2].appendChild(event.target)
+    //     break;
+    //   default:
+    //   // code block
+    // }
+    if (data === 'A') {
+      classifiedColumn[0].appendChild(event.target)
+    } else if (data === 'B') {
+      classifiedColumn[1].appendChild(event.target)
+    } else if (data === 'C') {
+      classifiedColumn[2].appendChild(event.target)
     }
-    // if (data === 'A') {
-    //   classifiedColumn[0].appendChild(event.target)
-    // }
-    // if (data === 'B') {
-    //   classifiedColumn[1].appendChild(event.target)
-    // }
-    // if (data === 'C') {
-    //   classifiedColumn[2].appendChild(event.target)
-    // }
+
     for (let i = 0; i < 3; i++) {
       let list = classifiedColumn[i];
       console.log(list);
@@ -41,11 +40,7 @@ const handler = (event) => {
         }).forEach(li => list.appendChild(li));
     }
 
-    console.log(pocketData.childElementCount);
-
-    if (pocketData.childElementCount === 0) {
-      pocket.remove();
-    }
+    if (pocketData.childElementCount === 0) pocket.remove();
   }
 
 }
