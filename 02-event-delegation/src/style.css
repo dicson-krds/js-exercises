@@ -1,0 +1,17 @@
+body {
+  font-family: sans-serif;
+}
+button {
+  font-size: 1em;
+  padding: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+}
+button span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
