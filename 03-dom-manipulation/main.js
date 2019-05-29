@@ -30,7 +30,6 @@ const handler = (event) => {
 
     for (let i = 0; i < 3; i++) {
       let list = classifiedColumn[i];
-      console.log(list);
       Array.from(list.querySelectorAll("li:not(:first-child)"))
         .sort((a, b) => {
           if (a.innerHTML > b.innerHTML)

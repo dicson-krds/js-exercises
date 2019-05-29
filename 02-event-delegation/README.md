@@ -8,3 +8,6 @@ updates background color of the button as its text says
 
 ### Image Reference
 ![](ref.jpg)
+
+### LINK
+https://dicson-krds.github.io/js-exercises/02-event-delegation/
