@@ -1,7 +1,9 @@
 //Color matching game
 const model = {
   randomColors: ['red', 'green', 'blue', 'tomato', 'orange', 'gray', 'violet', 'brown'],
+  board: document.querySelector('#board'),
   tile: document.querySelectorAll('#board > li'),
+  congratsMsg: document.querySelector('#congrats'),
   tileColors: [],
   currentIndex: '',
   previousIndex: '',
@@ -9,13 +11,11 @@ const model = {
   gamechecker: 1,
   currentColor: '',
   previousColor: '',
+  clearTime: 200,
   incrementSteps: () => model.steps++,
 }
 const view = {
-  board: document.querySelector('.board'),
-  tileBoard: document.querySelectorAll('.board li'),
   steps: document.querySelector('#steps'),
-  congratsMsg: document.querySelector('#congrats'),
   updateSteps: count => {
     steps.innerHTML = steps.innerHTML.replace(/[0-9]/g, '') + count;
   },
@@ -26,10 +26,12 @@ const view = {
         model.tile[model.previousIndex].style.pointerEvents = 'none';
         view.gameCompleted();
       } else {
-        model.tile[model.currentIndex].setAttribute('style', '');
-        model.tile[model.previousIndex].setAttribute('style', '');
+        setTimeout(() => {
+          model.tile[model.currentIndex].setAttribute('style', '');
+          model.tile[model.previousIndex].setAttribute('style', '');
+        }, model.clearTime)
       }
-      model.previousIndex = '';
+      setTimeout(() => { model.previousIndex = '' }, model.clearTime);
     }
     else {
       model.previousIndex = model.currentIndex;
@@ -38,15 +40,14 @@ const view = {
   },
   gameCompleted: () => {
     if (model.gamechecker == model.randomColors.length) {
-      view.congratsMsg.removeAttribute('style');
-      view.board.removeEventListener('click', controller.clickHandler)
+      model.congratsMsg.removeAttribute('style');
+      model.board.removeEventListener('click', controller.clickHandler)
     }
-
     ++model.gamechecker;
   },
   init: () => {
     controller.shuffle();
-    view.board.addEventListener('click', controller.clickHandler);
+    model.board.addEventListener('click', controller.clickHandler);
   }
 }
 
@@ -62,7 +63,7 @@ const controller = {
     model.tileColors = model.tileColors.sort(function () {
       return .5 - Math.random();
     });
-    console.log(model.tileColors);
+    //console.log(model.tileColors);
   },
   clickHandler: (e) => {
     if (e.target.tagName !== 'LI') return false;
