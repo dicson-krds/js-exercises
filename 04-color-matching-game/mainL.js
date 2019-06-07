@@ -8,8 +8,7 @@ const model = {
   getselectedIndex: () => model.selectedIndex,
   getsteps: () => model.steps,
   createColorBox: () => {
-    model.colorBox = model.uniqueColors.map(item => [item, item]).flat()
-      .sort(() => Math.random() - 0.5)
+    model.colorBox = model.uniqueColors.map(item => [item, item]).flat().sort(() => Math.random() - 0.5)
   },
   checkChosenColor: () => model.uniqueColors.length === model.chosenColor,
   updateChosenColor: () => model.chosenColor++,

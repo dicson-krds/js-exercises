@@ -37,6 +37,18 @@ const view = {
     }
     ++model.gamechecker;
   },
+  freezeTiles: () => {
+    if (model.tileColors[model.currentIndex] == model.tileColors[model.previousIndex]) {
+      view.tile[model.currentIndex].style.pointerEvents = 'none';
+      view.tile[model.previousIndex].style.pointerEvents = 'none';
+      view.gameCompleted();
+    } else {
+      setTimeout(() => {
+        view.tile[model.currentIndex].setAttribute('style', '');
+        view.tile[model.previousIndex].setAttribute('style', '');
+      }, model.clearTime)
+    }
+  },
   init: () => {
     view.shuffle();
     view.board.addEventListener('click', controller.clickHandler);
@@ -44,25 +56,6 @@ const view = {
 }
 
 const controller = {
-  compareTiles: () => {
-    if (model.tileColors[model.previousIndex]) {
-      if (model.tileColors[model.currentIndex] == model.tileColors[model.previousIndex]) {
-        view.tile[model.currentIndex].style.pointerEvents = 'none';
-        view.tile[model.previousIndex].style.pointerEvents = 'none';
-        view.gameCompleted();
-      } else {
-        setTimeout(() => {
-          view.tile[model.currentIndex].setAttribute('style', '');
-          view.tile[model.previousIndex].setAttribute('style', '');
-        }, model.clearTime)
-      }
-      setTimeout(() => { model.previousIndex = '' }, model.clearTime);
-    }
-    else {
-      model.previousIndex = model.currentIndex;
-      view.tile[model.currentIndex].style.pointerEvents = 'none';
-    }
-  },
   clickHandler: (e) => {
     if (e.target.tagName !== 'LI') return false;
     view.updateSteps(model.incrementSteps())
@@ -70,6 +63,16 @@ const controller = {
 
     e.target.style.backgroundColor = model.tileColors[model.currentIndex];
     controller.compareTiles();
+  },
+  compareTiles: () => {
+    if (model.tileColors[model.previousIndex]) {
+      view.freezeTiles();
+      setTimeout(() => { model.previousIndex = '' }, model.clearTime);
+    }
+    else {
+      model.previousIndex = model.currentIndex;
+      view.tile[model.currentIndex].style.pointerEvents = 'none';
+    }
   }
 }
 
