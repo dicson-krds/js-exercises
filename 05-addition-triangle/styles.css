@@ -1,0 +1,14 @@
+body {
+  font-family: sans-serif;
+  color: red;
+}
+div {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.3em;
+  padding: 0.3em 0;
+}
+div span {
+  display: inline-block;
+  vertical-align: top;
+}

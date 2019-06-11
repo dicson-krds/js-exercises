@@ -19,17 +19,6 @@ const view = {
   resetFrame: () => {
     model.output.innerHTML = '';
   },
-  setVisibility: (val) => {
-    let targetRow = val.querySelectorAll('div'),
-      currentRow = targetRow.length;
-
-    let interval = setInterval(function () {
-      currentRow -= 1;
-      targetRow[currentRow].style.visibility = 'visible';
-      if (currentRow == 0)
-        clearInterval(interval)
-    }, 600);
-  },
   init: () => {
     document.querySelector('.input').addEventListener('submit', view.getValue);
   }
@@ -54,22 +43,26 @@ const controller = {
   createTriangle: (arr) => {
     let Value = [],
       space = '',
-      stringSpace = '\xa0';
+      stringSpace = '\xa0',
+      spanTag = '';
     view.resetFrame();
     for (let i = (arr.length - 1); i >= 0; i--) {
       space = arr[arr.length - 1].toString().length
-      space = stringSpace.repeat(space);
-      Value = arr[i].join(space)
-      model.output.insertAdjacentHTML('beforeend', '<div>' + Value + '</div>');
+      //space = stringSpace.repeat(space);
+      //Value = arr[i].join(space)
+      console.log(space);
+      Value = arr[i].join('</span><span>')
+      model.output.insertAdjacentHTML('beforeend', '<div><span>' + Value + '</span></div>');
       if (i == 0) {
-        divTag = document.querySelectorAll('.frame div');
-        [].forEach.call(divTag, function (span) {
-          span.style.visibility = 'hidden';
+        //spanTag = document.querySelectorAll('.frame span')
+        //spanTag.style.width = space + 'em';
+        spanTag = document.querySelectorAll('.frame span');
+        [].forEach.call(spanTag, function (span) {
+          span.style.width = space + 'em';
         });
-        let finalFrame = document.querySelector('.frame')
-        view.setVisibility(finalFrame);
       }
     }
+
   }
 }
 view.init();
