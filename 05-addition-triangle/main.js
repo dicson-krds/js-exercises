@@ -9,7 +9,6 @@ const view = {
     e.preventDefault();
     let setArrayValue = []
     new FormData(e.target).get('ip').trim().split(' ').forEach(data => {
-      console.log(parseInt(data));
       if (!isNaN(parseInt(data)))
         setArrayValue.push(parseInt(data))
     });
