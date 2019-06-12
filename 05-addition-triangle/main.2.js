@@ -1,6 +1,7 @@
 const model = {
   triangleArray: [],
   getTriangleArray: () => model.triangleArray,
+  updateTriangleArray: (val) => model.triangleArray.push(val),
   resetTriangle: () => model.triangleArray = [],
   output: document.querySelector('.frame'),
 }
@@ -9,7 +10,6 @@ const view = {
     e.preventDefault();
     let setArrayValue = []
     new FormData(e.target).get('ip').trim().split(' ').forEach(data => {
-      console.log(parseInt(data));
       if (!isNaN(parseInt(data)))
         setArrayValue.push(parseInt(data))
     });
@@ -37,7 +37,7 @@ const view = {
 
 const controller = {
   addValue: (val) => {
-    model.triangleArray.push(val)
+    model.updateTriangleArray(val)
     let tempArray = []
 
     if (val.length == 1) {
@@ -52,18 +52,19 @@ const controller = {
     controller.addValue(tempArray);
   },
   createTriangle: (arr) => {
-    let frameValue = [],
+    let Value = [],
       space = '',
       stringSpace = '\xa0';
     view.resetFrame();
     for (let i = (arr.length - 1); i >= 0; i--) {
-      space = stringSpace.repeat(arr[i].length);
-      frameValue = arr[i].join(space)
-      model.output.insertAdjacentHTML('beforeend', '<div>' + frameValue + '</div>');
+      space = arr[arr.length - 1].toString().length
+      space = stringSpace.repeat(space);
+      Value = arr[i].join(space)
+      model.output.insertAdjacentHTML('beforeend', '<div>' + Value + '</div>');
       if (i == 0) {
         divTag = document.querySelectorAll('.frame div');
-        [].forEach.call(divTag, function (e) {
-          e.style.visibility = 'hidden';
+        [].forEach.call(divTag, function (span) {
+          span.style.visibility = 'hidden';
         });
         let finalFrame = document.querySelector('.frame')
         view.setVisibility(finalFrame);
