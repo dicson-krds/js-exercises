@@ -27,6 +27,7 @@ const view = {
       targetRow[currentRow].style.visibility = 'visible';
       if (currentRow == 0)
         clearInterval(interval)
+
     }, 600);
   },
   init: () => {
@@ -60,8 +61,8 @@ const controller = {
       frameValue = arr[i].join(space)
       model.output.insertAdjacentHTML('beforeend', '<div>' + frameValue + '</div>');
       if (i == 0) {
-        divTag = document.querySelectorAll('.frame div');
-        [].forEach.call(divTag, function (e) {
+        frameRow = document.querySelectorAll('.frame div');
+        [].forEach.call(frameRow, function (e) {
           e.style.visibility = 'hidden';
         });
         let finalFrame = document.querySelector('.frame')
