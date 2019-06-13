@@ -61,12 +61,11 @@ const controller = {
       frameValue = arr[i].join(space)
       model.output.insertAdjacentHTML('beforeend', '<div>' + frameValue + '</div>');
       if (i == 0) {
-        frameRow = document.querySelectorAll('.frame div');
+        let frameRow = document.querySelectorAll('.frame div');
         [].forEach.call(frameRow, function (e) {
           e.style.visibility = 'hidden';
         });
-        let finalFrame = document.querySelector('.frame')
-        view.setVisibility(finalFrame);
+        view.setVisibility(model.output);
       }
     }
   }
