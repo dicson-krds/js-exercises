@@ -6,3 +6,6 @@
 - Display post title, description & a link to display author details in list item
 - A click to a list item should open a popup containing corresponding author's name, email, company, address & website
 - Use bootstrap/materialize css for a nice ui
+
+### LINK
+https://dicson-krds.github.io/js-exercises/06-api-handling/
