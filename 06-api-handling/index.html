@@ -11,13 +11,38 @@
 </head>
 
 <body>
+
   <div class="container postlist">
-    <div id="post" class="row"></div>
+    <div id="postList" class="row"></div>
   </div>
   <!-- Modal Structure -->
   <div class="modal">
-    <div class="modal-content"></div>
-    <a class="modal-close">X</a>
+    <div class="modal-content">
+      <div class="no-data" style="display: none"><span>☹️</span> No data From Server</div>
+      <div class="data">
+        <h5><b>Name: </b><span class="name"></span></h5>
+        <h5><b>Email ID: </b><span class="email"></span></h5>
+        <div>
+          <div>
+            <h6>COMPANY:</h6>
+            <p>
+              <span class="company"></span><br>
+              <b>Phone:- </b> <span class="phone"></span><br>
+              <b>Website:- </b> <a class="website" target="_blank"></a>
+            </p>
+          </div>
+          <div>
+            <h6>ADDRESS:</h6>
+            <p>
+              <span class="address"></span><br>
+              <b>zipcode:- </b> <span class="zipcode"></span><br>
+              <b>Lat:- </b><span class="lat"></span>, <b>lng:- </b><span class="lng"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="modal-close" href="javascript:void(0);">X</a>
   </div>
   <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
   <script src="./main.js"></script>

@@ -70,12 +70,12 @@ body {
   font-size: 1.3rem;
   margin: 0 0 0.6rem 0;
 }
-.modal-content > div {
+.modal-content .data > div {
   padding-top: 0.7rem;
   display: flex;
   flex-wrap: wrap;
 }
-.modal-content > div > div {
+.modal-content .data > div > div {
   padding: 1rem;
   border: 1px dotted #ccc;
   width: 47%;
@@ -86,11 +86,15 @@ body {
   font-size: 1rem;
   margin: 0;
 }
-.modal-content .no-data {
+.no-data {
   font-size: 1.3rem;
     margin: 0;
+    text-align: center;
     padding: 1.5rem 1rem;
-    justify-content: center;
+}
+.no-data span {
+  display: block;
+  font-size: 4rem;
 }
 .modal-content h6 {
   font-size: 1.2rem;
