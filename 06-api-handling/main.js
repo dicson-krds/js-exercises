@@ -1,8 +1,10 @@
 let postData = [],
-  postdataUrl = 'https://jsonplaceholder.typicode.com/posts',
+  authorData = [],
+  dataIndex = 0,
   postList = document.querySelector('#postList');
 
-const modal = document.querySelector('.modal'),
+const postdataUrl = 'https://jsonplaceholder.typicode.com/posts',
+  modal = document.querySelector('.modal'),
   modalContent = document.querySelector('.modal-content');
 
 function init() {
@@ -38,18 +40,13 @@ const renderpostData = (data) => {
 }
 
 const renderauthorData = (data) => {
+
   modalContent.querySelector('.data').style.display = 'block';
   modalContent.querySelector('.no-data').style.display = 'none';
   modalContent.querySelector('.name').innerHTML = data.name;
   modalContent.querySelector('.email').innerHTML = data.email;
-  modalContent.querySelector('.phone').innerHTML = data.phone;
-  modalContent.querySelector('.website').innerHTML = data.website;
-  modalContent.querySelector('.website').href = 'http://' + data.website;
-  modalContent.querySelector('.zipcode').innerHTML = data.address.zipcode;
-  modalContent.querySelector('.lat').innerHTML = data.address.geo.lat;
-  modalContent.querySelector('.lng').innerHTML = data.address.geo.lng;
-  modalContent.querySelector('.company').innerHTML = data.company.name + '<br>' + data.company.catchPhrase + '<br>' + data.company.bs;
-  modalContent.querySelector('.address').innerHTML = data.address.street + '<br>' + data.address.suite + ', ' + data.address.city;
+  modalContent.querySelector('.company').innerHTML = data.company.name + '<br>' + data.company.catchPhrase + '<br>' + data.company.bs + '<br><b>Phone:- </b>' + data.phone + '<br><b>Website:- </b><a target="_blank" href="http://' + data.website + '" >' + data.website;
+  modalContent.querySelector('.address').innerHTML = data.address.street + '<br>' + data.address.suite + ', ' + data.address.city + '<br><b>zipcode:- </b>' + data.address.zipcode + '<br><b>Lat:- </b>' + data.address.geo.lat + ', <b>lng:- </b>' + data.address.geo.lng;
 
   const instance = M.Modal.init(modal, {
     onCloseEnd: function () {
@@ -60,22 +57,30 @@ const renderauthorData = (data) => {
 }
 
 const fetchAuthor = (res) => {
-  let _target = res.target;
+  let _target = res.target,
+    user_id = _target.getAttribute('data-id');
   if (_target.tagName !== 'A') return false;
 
-  let user_id = _target.getAttribute('data-id');
-  _target.classList.add('active');
-  fetch(`https://jsonplaceholder.typicode.com/users/${user_id}`)
-    .then(res => res.json())
-    .then(res => {
-      _target.classList.remove('active');
-      renderauthorData(res);
-    })
-    .catch(() => {
-      authornoData();
-      _target.classList.remove('active');
-      console.log('Post data faild');
-    });
+  if (!_target.getAttribute('data-index')) {
+    _target.setAttribute('data-index', dataIndex)
+    _target.classList.add('active');
+    fetch(`https://jsonplaceholder.typicode.com/users/${user_id}`)
+      .then(res => res.json())
+      .then(res => {
+        _target.classList.remove('active');
+        renderauthorData(res);
+        authorData.push(res);
+        dataIndex++;
+      })
+      .catch(() => {
+        authornoData();
+        _target.classList.remove('active');
+        console.log('Post data faild');
+      });
+  }
+  else {
+    renderauthorData(authorData[_target.getAttribute('data-index')]);
+  }
 }
 
 const authornoData = () => {
