@@ -1,5 +1,6 @@
 let postData = [],
   authorData = [],
+  PreUserId = 0,
   dataIndex = 0,
   postList = document.querySelector('#postList');
 
@@ -33,6 +34,7 @@ const renderpostData = (data) => {
     html.querySelector('.postTitle').innerHTML = e.title
     html.querySelector('.postBody').innerHTML = e.body
     html.querySelector('.postCTA').setAttribute('data-id', e.id)
+    html.querySelector('.postCTA').setAttribute('user-id', e.userId)
     fragment.appendChild(html)
   });
   postList.appendChild(fragment);
@@ -52,29 +54,45 @@ const renderauthorData = (data) => {
 
 const fetchAuthor = (res) => {
   let _target = res.target,
-    user_id = _target.getAttribute('data-id');
+    user_id = _target.getAttribute('user-id');
   if (_target.tagName !== 'A') return false;
 
-  if (!_target.getAttribute('data-index')) {
-    _target.setAttribute('data-index', dataIndex)
-    _target.classList.add('active');
+  _target.classList.add('active');
+
+
+
+  //console.log('ok ok', _target.getAttribute('data-index'));
+  _targetCatchDataIndex = _target.getAttribute('data-index');
+
+  if (user_id == PreUserId) {
+    renderauthorData(authorData[_targetCatchDataIndex]);
+    _target.classList.remove('active');
+    console.log('old data');
+  } else {
     fetch(`https://jsonplaceholder.typicode.com/users/${user_id}`)
       .then(res => res.json())
       .then(res => {
         _target.classList.remove('active');
         renderauthorData(res);
         authorData.push(res);
-        dataIndex++;
+        if (_targetCatchDataIndex)
+          dataIndex++;
       })
       .catch(() => {
         authornoData();
         _target.classList.remove('active');
         console.log('Post data faild');
       });
+
+    console.log('New data');
+    var _tagetDataIndex = document.querySelectorAll('[user-id="' + user_id + '"]');
+    _tagetDataIndex.forEach(e => {
+      e.setAttribute('data-index', dataIndex)
+    });
+
   }
-  else {
-    renderauthorData(authorData[_target.getAttribute('data-index')]);
-  }
+
+  PreUserId = _target.getAttribute('user-id');
 }
 
 const authornoData = () => {
