@@ -47,13 +47,7 @@ const renderauthorData = (data) => {
   modalContent.querySelector('.email').innerHTML = data.email;
   modalContent.querySelector('.company').innerHTML = data.company.name + '<br>' + data.company.catchPhrase + '<br>' + data.company.bs + '<br><b>Phone:- </b>' + data.phone + '<br><b>Website:- </b><a target="_blank" href="http://' + data.website + '" >' + data.website;
   modalContent.querySelector('.address').innerHTML = data.address.street + '<br>' + data.address.suite + ', ' + data.address.city + '<br><b>zipcode:- </b>' + data.address.zipcode + '<br><b>Lat:- </b>' + data.address.geo.lat + ', <b>lng:- </b>' + data.address.geo.lng;
-
-  const instance = M.Modal.init(modal, {
-    onCloseEnd: function () {
-      instance.destroy();
-    }
-  })
-  instance.open()
+  modelPopup();
 }
 
 const fetchAuthor = (res) => {
@@ -84,14 +78,19 @@ const fetchAuthor = (res) => {
 }
 
 const authornoData = () => {
+  modelPopup();
+  modalContent.querySelector('.data').style.display = 'none';
+  modalContent.querySelector('.no-data').style.display = 'block';
+  instance.open();
+}
+
+const modelPopup = () => {
   const instance = M.Modal.init(modal, {
     onCloseEnd: function () {
       instance.destroy();
     }
   })
   instance.open()
-  modalContent.querySelector('.data').style.display = 'none';
-  modalContent.querySelector('.no-data').style.display = 'block';
-  instance.open();
 }
+
 init();
