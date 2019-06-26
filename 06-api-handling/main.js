@@ -1,6 +1,6 @@
 let postData = [],
   authorData = [],
-  PreUserId = 0,
+  OldUserId = 0,
   dataIndex = 0,
   postList = document.querySelector('#postList');
 
@@ -26,14 +26,13 @@ let postElement = (div) => {
   return div
 }
 
-const renderpostData = (data) => {
+const renderpostData = (res) => {
   let fragment = document.createDocumentFragment();
 
-  Array.from(data).forEach(e => {
+  Array.from(res).forEach(e => {
     const html = postElement().cloneNode(true)
     html.querySelector('.postTitle').innerHTML = e.title
     html.querySelector('.postBody').innerHTML = e.body
-    // html.querySelector('.postCTA').setAttribute('data-id', e.id)
     html.querySelector('.postCTA').setAttribute('user-id', e.userId, 'data-id', e.id)
     fragment.appendChild(html)
   });
@@ -41,14 +40,14 @@ const renderpostData = (data) => {
   postList.addEventListener('click', fetchAuthor);
 }
 
-const renderauthorData = (data) => {
+const renderauthorData = (res) => {
 
   modalContent.querySelector('.data').style.display = 'block';
   modalContent.querySelector('.no-data').style.display = 'none';
-  modalContent.querySelector('.name').innerHTML = data.name;
-  modalContent.querySelector('.email').innerHTML = data.email;
-  modalContent.querySelector('.company').innerHTML = data.company.name + '<br>' + data.company.catchPhrase + '<br>' + data.company.bs + '<br><b>Phone:- </b>' + data.phone + '<br><b>Website:- </b><a target="_blank" href="http://' + data.website + '" >' + data.website;
-  modalContent.querySelector('.address').innerHTML = data.address.street + '<br>' + data.address.suite + ', ' + data.address.city + '<br><b>zipcode:- </b>' + data.address.zipcode + '<br><b>Lat:- </b>' + data.address.geo.lat + ', <b>lng:- </b>' + data.address.geo.lng;
+  modalContent.querySelector('.name').innerHTML = res.name;
+  modalContent.querySelector('.email').innerHTML = res.email;
+  modalContent.querySelector('.company').innerHTML = res.company.name + '<br>' + res.company.catchPhrase + '<br>' + res.company.bs + '<br><b>Phone:- </b>' + res.phone + '<br><b>Website:- </b><a target="_blank" href="http://' + res.website + '" >' + res.website;
+  modalContent.querySelector('.address').innerHTML = res.address.street + '<br>' + res.address.suite + ', ' + res.address.city + '<br><b>zipcode:- </b>' + res.address.zipcode + '<br><b>Lat:- </b>' + res.address.geo.lat + ', <b>lng:- </b>' + res.address.geo.lng;
   modelPopup();
 }
 
@@ -58,16 +57,11 @@ const fetchAuthor = (res) => {
   if (_target.tagName !== 'A') return false;
 
   _target.classList.add('active');
-
-
-
-  //console.log('ok ok', _target.getAttribute('data-index'));
   _targetCatchDataIndex = _target.getAttribute('data-index');
 
-  if (user_id == PreUserId) {
+  if (user_id == OldUserId) {
     renderauthorData(authorData[_targetCatchDataIndex]);
     _target.classList.remove('active');
-    // console.log('old data');
   } else {
     fetch(`https://jsonplaceholder.typicode.com/users/${user_id}`)
       .then(res => res.json())
@@ -84,7 +78,6 @@ const fetchAuthor = (res) => {
         console.log('Post data faild');
       });
 
-    // console.log('New data');
     var _tagetDataIndex = document.querySelectorAll('[user-id="' + user_id + '"]');
     _tagetDataIndex.forEach(e => {
       e.setAttribute('data-index', dataIndex)
@@ -92,7 +85,7 @@ const fetchAuthor = (res) => {
 
   }
 
-  PreUserId = _target.getAttribute('user-id');
+  OldUserId = _target.getAttribute('user-id');
 }
 
 const authornoData = () => {
