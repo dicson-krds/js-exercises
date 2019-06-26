@@ -33,8 +33,8 @@ const renderpostData = (data) => {
     const html = postElement().cloneNode(true)
     html.querySelector('.postTitle').innerHTML = e.title
     html.querySelector('.postBody').innerHTML = e.body
-    html.querySelector('.postCTA').setAttribute('data-id', e.id)
-    html.querySelector('.postCTA').setAttribute('user-id', e.userId)
+    // html.querySelector('.postCTA').setAttribute('data-id', e.id)
+    html.querySelector('.postCTA').setAttribute('user-id', e.userId, 'data-id', e.id)
     fragment.appendChild(html)
   });
   postList.appendChild(fragment);
@@ -67,7 +67,7 @@ const fetchAuthor = (res) => {
   if (user_id == PreUserId) {
     renderauthorData(authorData[_targetCatchDataIndex]);
     _target.classList.remove('active');
-    console.log('old data');
+    // console.log('old data');
   } else {
     fetch(`https://jsonplaceholder.typicode.com/users/${user_id}`)
       .then(res => res.json())
@@ -84,7 +84,7 @@ const fetchAuthor = (res) => {
         console.log('Post data faild');
       });
 
-    console.log('New data');
+    // console.log('New data');
     var _tagetDataIndex = document.querySelectorAll('[user-id="' + user_id + '"]');
     _tagetDataIndex.forEach(e => {
       e.setAttribute('data-index', dataIndex)
