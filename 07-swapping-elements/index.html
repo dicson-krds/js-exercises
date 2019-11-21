@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Swapping Elements</title>
+  <style>
+    * {
+      margin: 0;
+    }
+
+    h2 {
+      margin-bottom: 0.5em;
+    }
+
+    div {
+      font: 14px sans-serif;
+      float: left;
+      margin: 2em;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      user-select: none;
+    }
+
+    li {
+      background-color: royalblue;
+      color: #fff;
+      margin: 0.2em 0;
+      padding: 0.4em;
+      cursor: pointer;
+    }
+
+    button {
+      display: block;
+      margin: 1em 0;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h2>Stock</h2>
+    <ul id="stock" class="list">
+      <li>Apple(5)</li>
+      <li>Avocado(3)</li>
+      <li>Banana(4)</li>
+      <li>Grape(6)</li>
+      <li>Guava(4)</li>
+      <li>Mango(5)</li>
+      <li>Papaya(3)</li>
+    </ul>
+  </div>
+  <div>
+    <h2 id="total">Cart (4)</h2>
+    <ul id="cart" class="list">
+      <li>Apple(2)</li>
+      <li>Avocado(2)</li>
+    </ul>
+    <button>Clear Cart</button>
+  </div>
+  <script src="./main.js"></script>
+</body>
+
+</html>
